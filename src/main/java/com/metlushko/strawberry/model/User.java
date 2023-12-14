@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class User {
 
-    private UUID userId;
+    private Long userId;
     private String name;
     private String address;
     private String phoneNumber;

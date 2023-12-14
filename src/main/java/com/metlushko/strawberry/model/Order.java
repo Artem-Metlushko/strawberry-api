@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 public class Order {
 
-    private UUID orderId;
+    private Long orderId;
     private List<Product> products;
     private LocalDate created;
 }

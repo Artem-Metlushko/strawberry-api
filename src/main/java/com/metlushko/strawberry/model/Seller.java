@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class Seller {
 
-    private UUID sellerId;
+    private Long sellerId;
     private List<Product> products;
 
 }
