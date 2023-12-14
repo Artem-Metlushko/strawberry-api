@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -17,5 +16,5 @@ public class Order {
 
     private Long orderId;
     private List<Product> products;
-    private LocalDate created;
+    private LocalDateTime created;
 }
