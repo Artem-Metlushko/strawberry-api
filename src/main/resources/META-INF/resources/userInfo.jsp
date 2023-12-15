@@ -36,11 +36,10 @@
         <th>PhoneNumber</th>
     </tr>
     <tr>
-        <td>${user.id}</td>
-        <td><%=user.getUserId()%></td>
-        <td><%=user.getName()%></td>
-        <td><%=user.getAddress()%></td>
-        <td><%=user.getPhoneNumber()%></td>
+        <td>${user.userId}</td>
+        <td>${user.getName()}</td>
+        <td>${user.getAddress()}</td>
+        <td>${user.getPhoneNumber()}</td>
     </tr>
 </table>
 
