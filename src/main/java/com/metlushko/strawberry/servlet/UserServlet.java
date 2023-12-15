@@ -3,7 +3,6 @@ package com.metlushko.strawberry.servlet;
 import com.metlushko.strawberry.model.User;
 import com.metlushko.strawberry.service.UserService;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
