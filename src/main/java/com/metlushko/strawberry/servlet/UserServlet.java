@@ -47,13 +47,16 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("user", user);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userInfo.jsp");
             requestDispatcher.include(request, response);
+
         } else if (id.isEmpty()) {
             User build = User.builder()
                     .name(name)
                     .address(address)
                     .phoneNumber(phoneNumber)
                     .build();
-            userService.saveUser(build);
+
+            User user = userService.saveUser(build);
+            request.setAttribute("user", user);
             request.getRequestDispatcher("/userInfo.jsp").include(request,response);
         }
 
