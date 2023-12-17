@@ -57,11 +57,17 @@ public class UserDAO {
     }
 
     public User save(User user) {
-        long l = new Random().nextLong()* 1000L;
+        long l = new Random().nextLong() * 1000L;
         user.setUserId(l);
         String key = String.valueOf(user.getUserId());
-        userMap.put(key,user);
+        userMap.put(key, user);
 
         return userMap.get(key);
+    }
+
+    public boolean delete(Long userId) {
+        String key = String.valueOf(userId);
+        User user = userMap.get(key);
+        return userMap.remove(key, user);
     }
 }

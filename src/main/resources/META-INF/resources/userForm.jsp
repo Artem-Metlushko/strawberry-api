@@ -9,14 +9,14 @@
 
 <body>
 <header>
-    <li><a href="<%=request.getContextPath()%>/list">Users</a></li>
+    <li><a href="<%=request.getContextPath()%>/api/list">Users</a></li>
 </header>
 
 <c:if test="${requestScope.user != null}">
-<form action="updateUser" method="post">
+<form action="/api/updateUser" method="post">
     </c:if>
     <c:if test="${requestScope.user == null}">
-    <form action="insertUser" method="post">
+    <form action="/api/insertUser" method="post">
         </c:if>
 
         <caption>

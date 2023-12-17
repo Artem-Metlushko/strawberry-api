@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
                 case "/list" -> listUser(request, response);
                 case "/new" -> form(request, response);
 
-//                case "/delete" -> deleteUser(request, response);
+                case "/delete" -> deleteUser(request, response);
 //                case "/edit" -> showEditForm(request, response);
 //                case "/update" -> updateUser(request, response);
                 default -> listUser(request, response);
@@ -44,6 +44,13 @@ public class Controller extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id = request.getParameter("id");
+        long l = Long.parseLong(id);
+        userService.deleteUser(l);
+        response.sendRedirect("/api/list");
     }
 
     private void form(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

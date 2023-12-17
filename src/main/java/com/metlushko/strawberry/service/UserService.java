@@ -25,4 +25,8 @@ public class UserService {
     public User saveUser(User user) {
         return userDAO.save(user);
     }
+
+    public boolean deleteUser(Long userId){
+        return userDAO.delete(userId);
+    }
 }
