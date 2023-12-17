@@ -34,6 +34,8 @@ public class Controller extends HttpServlet {
                 case "/insertUser" -> createUser(request, response);
                 case "/get" -> getUser(request, response);
                 case "/list" -> listUser(request, response);
+                case "/new" -> form(request, response);
+
 //                case "/delete" -> deleteUser(request, response);
 //                case "/edit" -> showEditForm(request, response);
 //                case "/update" -> updateUser(request, response);
@@ -42,6 +44,11 @@ public class Controller extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+    }
+
+    private void form(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userForm.jsp");
+        requestDispatcher.forward(request,response);
     }
 
     private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
