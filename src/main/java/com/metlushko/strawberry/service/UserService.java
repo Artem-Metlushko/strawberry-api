@@ -18,8 +18,8 @@ public class UserService {
 
     }
 
-    public List<User> getUserList(String name){
-        return userDAO.getUserList(name);
+    public List<User> getUserList(){
+        return userDAO.getUserList();
     }
 
 }

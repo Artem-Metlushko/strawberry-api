@@ -3,6 +3,7 @@ package com.metlushko.strawberry.DAO;
 import com.metlushko.strawberry.model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +51,7 @@ public class UserDAO {
         return user;
     }
 
-    public List<User> getUserList(String name) {
-        return userMap.values().stream()
-                .filter(obj -> obj.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
+    public List<User> getUserList() {
+        return new ArrayList<>(userMap.values());
     }
 }
