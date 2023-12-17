@@ -20,6 +20,7 @@ public class UserServlet extends HttpServlet {
     private final UserService userService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getServletPath();
         doPost(request, response);
     }
 
@@ -36,6 +37,7 @@ public class UserServlet extends HttpServlet {
 
 
         response.sendRedirect(request.getContextPath() + "/userInfo.jsp");*/
+        String action = request.getServletPath();
 
         String id = request.getParameter("id");
         String name = request.getParameter("name");

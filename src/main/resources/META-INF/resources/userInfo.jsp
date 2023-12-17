@@ -31,10 +31,12 @@
         <th>PhoneNumber</th>
     </tr>
     <tr>
-        <td>${requestScope.user.userId}</td>
+        <td>
+            ${requestScope.user.userId}</td>
         <td>${requestScope.user.name}</td>
         <td>${requestScope.user.address}</td>
         <td>${requestScope.user.phoneNumber}</td>
+
     </tr>
 </table>
 
