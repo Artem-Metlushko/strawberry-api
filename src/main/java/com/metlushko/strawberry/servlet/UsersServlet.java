@@ -1,6 +1,7 @@
-package com.metlushko.strawberry.service;
+package com.metlushko.strawberry.servlet;
 
 import com.metlushko.strawberry.model.User;
+import com.metlushko.strawberry.service.UserService;
 import lombok.AllArgsConstructor;
 
 import javax.servlet.RequestDispatcher;
@@ -24,12 +25,6 @@ public class UsersServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form data
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phoneNumber");
-
 
         List<User> userList = userService.getUserList();
         request.setAttribute("usersList", userList);

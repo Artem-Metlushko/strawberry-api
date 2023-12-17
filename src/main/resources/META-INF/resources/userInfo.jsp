@@ -23,23 +23,18 @@
 </head>
 <body>
 
-<h2>HTML Table</h2>
-<%
-    User user = (User)request.getAttribute("user");
-%>
 <table>
     <tr>
-        <th>UserId</th>
         <th>UserId</th>
         <th>Name</th>
         <th>Address</th>
         <th>PhoneNumber</th>
     </tr>
     <tr>
-        <td>${user.userId}</td>
-        <td>${user.getName()}</td>
-        <td>${user.getAddress()}</td>
-        <td>${user.getPhoneNumber()}</td>
+        <td>${requestScope.user.userId}</td>
+        <td>${requestScope.user.name}</td>
+        <td>${requestScope.user.address}</td>
+        <td>${requestScope.user.phoneNumber}</td>
     </tr>
 </table>
 
