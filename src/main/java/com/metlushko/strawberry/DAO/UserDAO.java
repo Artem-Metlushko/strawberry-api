@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -53,5 +54,14 @@ public class UserDAO {
 
     public List<User> getUserList() {
         return new ArrayList<>(userMap.values());
+    }
+
+    public User save(User user) {
+        long l = new Random().nextLong()* 1000L;
+        user.setUserId(l);
+        String key = String.valueOf(user.getUserId());
+        userMap.put(key,user);
+
+        return userMap.get(key);
     }
 }

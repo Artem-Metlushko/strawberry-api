@@ -22,4 +22,7 @@ public class UserService {
         return userDAO.getUserList();
     }
 
+    public User saveUser(User user) {
+        return userDAO.save(user);
+    }
 }
