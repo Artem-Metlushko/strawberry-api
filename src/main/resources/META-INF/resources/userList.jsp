@@ -17,7 +17,6 @@
     </tr>
     </thead>
     <tbody>
-    <!--   for (Todo todo: todos) {  -->
     <c:forEach var="user" items="${requestScope.usersList}">
 
         <tr>
@@ -29,7 +28,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp; <a href="/api/delete?id=<c:out value='${user.userId}'/>">Delete</a></td>
         </tr>
     </c:forEach>
-    <!-- } -->
+
     </tbody>
 
 </table>

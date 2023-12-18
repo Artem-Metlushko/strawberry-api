@@ -5,22 +5,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 
 @Component
 @AllArgsConstructor
 public class UserDAO {
-    private final Map<String, User> userMap ;
+    private final Map<String, User> userMap;
     private final Random random;
 
     public User getUser(long id) {
-        User user = userMap.get(String.valueOf(id));
-        return user;
+
+        return userMap.get(String.valueOf(id));
     }
 
     public List<User> getUserList() {
@@ -46,10 +44,8 @@ public class UserDAO {
 
     public User update(User userForUpdate, Long id) {
         String key = String.valueOf(id);
-
         userMap.remove(key);
 
         return userMap.put(key, userForUpdate);
-
     }
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -24,21 +23,21 @@ public class Controller extends HttpServlet {
     private final UserService userService;
     private static final String USER_FORM_JSP = "/userForm.jsp";
     private static final String USER_LIST_JSP = "/userList.jsp";
-
     public static final String LIST_USERS = "/api/list";
 
+    @Override
     public void init() {
 
         userDAO.save(User.builder()
                 .name("vaca")
-                .phoneNumber("123123213")
+                .phoneNumber("3487952")
                 .address("Gomel")
                 .build());
 
         userDAO.save(User.builder()
                 .name("peter")
-                .phoneNumber("123123213")
-                .address("MInsk")
+                .phoneNumber("4875214")
+                .address("Minsk")
                 .build());
 
         userDAO.save(User.builder()
@@ -50,26 +49,24 @@ public class Controller extends HttpServlet {
     }
 
 
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        this.doGet(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getPathInfo();
-
-        try {
-            switch (action) {
-                case "/insertUser" -> createUser(request, response);
-                case "/new" -> form(request, response);
-                case "/delete" -> deleteUser(request, response);
-                case "/edit" -> showEditForm(request, response);
-                case "/updateUser" -> updateUser(request, response);
-                default -> listUser(request, response);
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
+        if (action == null) {
+            action = "/";
+        }
+        switch (action) {
+            case "/insertUser" -> createUser(request, response);
+            case "/new" -> form(request, response);
+            case "/delete" -> deleteUser(request, response);
+            case "/edit" -> showEditForm(request, response);
+            case "/updateUser" -> updateUser(request, response);
+            default -> listUser(request, response);
         }
     }
 
@@ -96,8 +93,8 @@ public class Controller extends HttpServlet {
         String id = request.getParameter("id");
         long l = Long.parseLong(id);
         User getUser = userService.getUser(l);
-        request.setAttribute("user",getUser);
-        request.getRequestDispatcher(USER_FORM_JSP).forward(request,response);
+        request.setAttribute("user", getUser);
+        request.getRequestDispatcher(USER_FORM_JSP).forward(request, response);
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -112,7 +109,7 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher(USER_FORM_JSP).forward(request, response);
     }
 
-    private void createUser(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -125,8 +122,7 @@ public class Controller extends HttpServlet {
                 .phoneNumber(phoneNumber)
                 .build();
 
-        User user = userService.saveUser(build);
-//            request.setAttribute("user", user);
+        userService.saveUser(build);
         response.sendRedirect(LIST_USERS);
 
     }
@@ -142,8 +138,7 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void listUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
+    private void listUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         List<User> userList = userService.getUserList();
         request.setAttribute("usersList", userList);
