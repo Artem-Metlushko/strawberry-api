@@ -10,6 +10,7 @@ public class StrawberryApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StrawberryApiApplication.class, args);
+
 	}
 
 }

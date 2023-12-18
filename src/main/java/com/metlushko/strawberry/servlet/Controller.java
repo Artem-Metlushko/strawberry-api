@@ -1,5 +1,6 @@
 package com.metlushko.strawberry.servlet;
 
+import com.metlushko.strawberry.DAO.UserDAO;
 import com.metlushko.strawberry.model.User;
 import com.metlushko.strawberry.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,39 @@ import java.util.List;
 @AllArgsConstructor
 @WebServlet(urlPatterns = {"/api/*"})
 public class Controller extends HttpServlet {
+
+    private final UserDAO userDAO;
     private final UserService userService;
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getServletPath();
+    private static final String USER_FORM_JSP = "/userForm.jsp";
+    private static final String USER_LIST_JSP = "/userList.jsp";
+
+    public static final String LIST_USERS = "/api/list";
+
+    public void init() {
+
+        userDAO.save(User.builder()
+                .name("vaca")
+                .phoneNumber("123123213")
+                .address("Gomel")
+                .build());
+
+        userDAO.save(User.builder()
+                .name("peter")
+                .phoneNumber("123123213")
+                .address("MInsk")
+                .build());
+
+        userDAO.save(User.builder()
+                .name("ura")
+                .address("China")
+                .phoneNumber("123123213")
+                .build());
+
+    }
+
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
@@ -32,13 +62,10 @@ public class Controller extends HttpServlet {
         try {
             switch (action) {
                 case "/insertUser" -> createUser(request, response);
-                case "/get" -> getUser(request, response);
-                case "/list" -> listUser(request, response);
                 case "/new" -> form(request, response);
-
                 case "/delete" -> deleteUser(request, response);
-//                case "/edit" -> showEditForm(request, response);
-//                case "/update" -> updateUser(request, response);
+                case "/edit" -> showEditForm(request, response);
+                case "/updateUser" -> updateUser(request, response);
                 default -> listUser(request, response);
             }
         } catch (SQLException ex) {
@@ -46,35 +73,62 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String id = request.getParameter("id");
-        long l = Long.parseLong(id);
-        userService.deleteUser(l);
-        response.sendRedirect("/api/list");
-    }
-
-    private void form(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userForm.jsp");
-        requestDispatcher.forward(request,response);
-    }
-
-    private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String parameter = request.getParameter("id");
+        long id = Long.parseLong(parameter);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
 
-        if (id.isEmpty()) {
-            User build = User.builder()
-                    .name(name)
-                    .address(address)
-                    .phoneNumber(phoneNumber)
-                    .build();
+        User build = User.builder()
+                .userId(id)
+                .name(name)
+                .address(address)
+                .phoneNumber(phoneNumber)
+                .build();
 
-            User user = userService.saveUser(build);
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("/userInfo.jsp").include(request,response);
-        }
+        userDAO.update(build, id);
+        response.sendRedirect(LIST_USERS);
+
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        long l = Long.parseLong(id);
+        User getUser = userService.getUser(l);
+        request.setAttribute("user",getUser);
+        request.getRequestDispatcher(USER_FORM_JSP).forward(request,response);
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id = request.getParameter("id");
+        long l = Long.parseLong(id);
+        userService.deleteUser(l);
+
+        response.sendRedirect(LIST_USERS);
+    }
+
+    private void form(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher(USER_FORM_JSP).forward(request, response);
+    }
+
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phoneNumber");
+
+
+        User build = User.builder()
+                .name(name)
+                .address(address)
+                .phoneNumber(phoneNumber)
+                .build();
+
+        User user = userService.saveUser(build);
+//            request.setAttribute("user", user);
+        response.sendRedirect(LIST_USERS);
+
     }
 
     private void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -82,7 +136,7 @@ public class Controller extends HttpServlet {
         if (!id.isEmpty()) {
             User user = userService.getUser(Long.valueOf(id));
             request.setAttribute("user", user);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userInfo.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(USER_FORM_JSP);
             requestDispatcher.include(request, response);
 
         }
@@ -93,7 +147,7 @@ public class Controller extends HttpServlet {
 
         List<User> userList = userService.getUserList();
         request.setAttribute("usersList", userList);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userList.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(USER_LIST_JSP);
         requestDispatcher.forward(request, response);
     }
 }
