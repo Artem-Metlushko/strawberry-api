@@ -1,9 +1,12 @@
 package com.metlushko.strawberry;
 
+import com.metlushko.strawberry.DAO.UserEntityManagerDao;
 import com.metlushko.strawberry.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.Optional;
 
 
 public class App {
@@ -11,21 +14,15 @@ public class App {
         Configuration configuration = new Configuration().addAnnotatedClass(User.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
+
+        UserEntityManagerDao managerDao = new UserEntityManagerDao(sessionFactory);
+
 
         try {
-            session.beginTransaction();
-
-            User user = session.get(User.class, 1L);
-            System.out.println(user.getName());
-            System.out.println(user.getAddress());
-
-            session.getTransaction().commit();
-
+            Optional<User> byId = managerDao.findById(1L);
+            System.out.println(byId);
+            managerDao.save(new User("save", "Ivanov", "Ivanov"));
         } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
             if (sessionFactory != null && !sessionFactory.isClosed()) {
                 sessionFactory.close();
             }
