@@ -1,3 +1,4 @@
+/*
 package com.metlushko.strawberry.service;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
@@ -32,3 +33,4 @@ public class UserEntityManagerService implements UserService{
 
     }
 }
+*/

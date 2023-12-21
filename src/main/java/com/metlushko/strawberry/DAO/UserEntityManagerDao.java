@@ -1,3 +1,4 @@
+/*
 package com.metlushko.strawberry.DAO;
 
 
@@ -48,3 +49,4 @@ public class UserEntityManagerDao implements Dao {
     }
 
 }
+*/

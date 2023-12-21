@@ -1,3 +1,4 @@
+/*
 package com.metlushko.strawberry.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,3 +59,4 @@ public class HibernateUtil  {
     }
 
 }
+*/
