@@ -25,7 +25,9 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+//    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = SEQUENCE,generator = "seq_generator_user")
+    @SequenceGenerator(name="seq_generator_user", sequenceName="users_id_seq", allocationSize=1)
     private Long id;
 
     private String name;

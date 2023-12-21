@@ -30,8 +30,6 @@ public class UserEntityManagerDao {
             }
             e.printStackTrace();
         }
-
-
     }
 
     public Optional<User> findById(Long id) {

@@ -22,6 +22,9 @@ public class App {
             Optional<User> byId = managerDao.findById(1L);
             System.out.println(byId);
             managerDao.save(new User("save", "Ivanov", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov", "Ivanov"));
         } finally {
             if (sessionFactory != null && !sessionFactory.isClosed()) {
                 sessionFactory.close();
