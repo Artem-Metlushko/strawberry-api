@@ -19,12 +19,25 @@ public class App {
 
 
         try {
-            Optional<User> byId = managerDao.findById(1L);
-            System.out.println(byId);
-            managerDao.save(new User("save", "Ivanov", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov", "Ivanov"));
+
+            managerDao.save(new User("save", "Ivanov1", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov2", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov3", "Ivanov"));
+            managerDao.save(new User("save", "Ivanov4", "Ivanov"));
+            Optional<User> user1 = managerDao.findById(1L);
+
+            Optional<User> user2 = managerDao.findById(2L);
+            Optional<User> user3 = managerDao.findById(3L);
+            Optional<User> user4 = managerDao.findById(4L);
+            System.out.println(user1);
+            System.out.println(user2);
+            System.out.println(user3);
+            System.out.println(user4);
+
+
+            managerDao.update(new User("update","Petrov1","Petr"),4L);
+            managerDao.delete(3L);
+            System.out.println();
         } finally {
             if (sessionFactory != null && !sessionFactory.isClosed()) {
                 sessionFactory.close();
