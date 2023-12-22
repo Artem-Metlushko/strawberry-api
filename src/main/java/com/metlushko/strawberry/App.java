@@ -1,19 +1,18 @@
 package com.metlushko.strawberry;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
+import com.metlushko.strawberry.config.HibernateUtil;
 import com.metlushko.strawberry.entity.User;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.Optional;
 
 
 public class App {
     public static void main(String[] args) {
-        Configuration configuration = new Configuration().addAnnotatedClass(User.class);
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         UserEntityManagerDao managerDao = new UserEntityManagerDao(sessionFactory);
 
