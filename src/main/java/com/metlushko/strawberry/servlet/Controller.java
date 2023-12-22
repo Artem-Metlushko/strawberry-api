@@ -13,17 +13,19 @@ import lombok.AllArgsConstructor;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 @AllArgsConstructor
 @WebServlet(urlPatterns = {"/api/*"})
 public class Controller extends HttpServlet {
 
-    private final UserDAO userDAO;
-    private final UserService userService;
-    private static final String USER_FORM_JSP = "/userForm.jsp";
-    private static final String USER_LIST_JSP = "/userList.jsp";
+    private final UserDAO userDAO = new UserDAO(new HashMap<>(), new Random());
+    private final UserService userService = new UserService(userDAO);
+    private static final String USER_FORM_JSP = "/WEB-INF/userForm.jsp";
+    private static final String USER_LIST_JSP = "/WEB-INF/userList.jsp";
     public static final String LIST_USERS = "/api/list";
 
     @Override
