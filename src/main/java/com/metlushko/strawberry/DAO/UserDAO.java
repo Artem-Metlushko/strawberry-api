@@ -1,7 +1,6 @@
 package com.metlushko.strawberry.DAO;
 
 import com.metlushko.strawberry.model.User;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,12 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 @Component
-@AllArgsConstructor
 public class UserDAO {
     private final Map<String, User> userMap;
     private final Random random;
+
+    public UserDAO(Map<String, User> userMap, Random random) {
+        this.userMap = userMap;
+        this.random = random;
+    }
 
     public User getUser(long id) {
 
