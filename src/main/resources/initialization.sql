@@ -14,11 +14,11 @@ DROP SEQUENCE IF EXISTS "users_id_seq";
 CREATE SEQUENCE "users_id_seq" ;
 
 
--- INSERT INTO "users" (id, name, address, phoneNumber)
--- VALUES (11, 'Ivawen', 'address', 'phoneNumber' );
--- INSERT INTO "users" (id, name, address, phoneNumber)
--- VALUES (10, 'Ivqqqan', 'Ivanov', 'Ivanov' );
--- INSERT INTO "users" (id, name, address, phoneNumber)
--- VALUES (12, 'ffff', 'Ivanov', 'Ivanov' );
--- INSERT INTO "users" (id, name, address, phoneNumber)
--- VALUES (14, 'ffff', 'Ivanov', 'Ivanov' );
+INSERT INTO "users" (id, name, address, phoneNumber)
+VALUES (11, 'Ivawen', 'address', 'phoneNumber' );
+INSERT INTO "users" (id, name, address, phoneNumber)
+VALUES (10, 'Ivqqqan', 'Ivanov', 'Ivanov' );
+INSERT INTO "users" (id, name, address, phoneNumber)
+VALUES (12, 'ffff', 'Ivanov', 'Ivanov' );
+INSERT INTO "users" (id, name, address, phoneNumber)
+VALUES (14, 'ffff', 'Ivanov', 'Ivanov' );

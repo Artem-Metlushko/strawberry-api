@@ -2,98 +2,60 @@ package com.metlushko.strawberry.DAO;
 
 
 import com.metlushko.strawberry.entity.User;
-import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 
-@AllArgsConstructor
+@Component
 public class UserEntityManagerDao {
 
     private final SessionFactory sessionFactory;
 
+    public UserEntityManagerDao(final SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Transactional
     public User save(User user) {
-        Transaction transaction = null;
-        User getUser = null;
-        try (Session session = sessionFactory.getCurrentSession()
-        ) {
-            transaction = session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
 
-            session.save(user);
-            Long id = user.getId();
-            getUser = session.get(User.class, id);
+        session.save(user);
+        Long id = user.getId();
+        return session.get(User.class, id);
 
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } return getUser;
     }
 
+    @Transactional
     public Optional<User> findById(Long id) {
-        Transaction transaction = null;
-        User user = null;
-        try (Session session = sessionFactory.getCurrentSession()
-        ) {
-            transaction = session.beginTransaction();
-
-            user = session.get(User.class, id);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, id);
         return Optional.ofNullable(user);
     }
 
-    public Optional<User> update(User userUpdate, Long id) {
-        Transaction transaction = null;
-        User user = null;
-        try (Session session = sessionFactory.getCurrentSession()
-        ) {
-            transaction = session.beginTransaction();
+    @Transactional
+    public void update(User userUpdate, Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        User userToUpdate = session.get(User.class, id);
 
-            user = session.get(User.class, id);
-            user.setName(userUpdate.getName());
-            user.setAddress(userUpdate.getAddress());
-            user.setPhoneNumber(userUpdate.getPhoneNumber());
+        userToUpdate.setName(userUpdate.getName());
+        userToUpdate.setAddress(userUpdate.getAddress());
+        userToUpdate.setPhoneNumber(userUpdate.getPhoneNumber());
 
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return Optional.ofNullable(user);
+
     }
 
-    public Optional<User> delete(Long id) {
-        Transaction transaction = null;
-        User user = null;
-        try (Session session = sessionFactory.getCurrentSession()
-        ) {
-            transaction = session.beginTransaction();
+    @Transactional
+    public void delete(Long id) {
+        Session session = sessionFactory.getCurrentSession();
 
-            user = session.get(User.class, id);
-            session.remove(user);
+        User userToDelete = session.get(User.class, id);
+        session.remove(userToDelete);
 
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return Optional.ofNullable(user);
     }
 
 

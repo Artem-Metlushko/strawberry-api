@@ -1,47 +1,28 @@
 package com.metlushko.strawberry;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
-import com.metlushko.strawberry.config.HibernateUtil;
+import com.metlushko.strawberry.config.SpringConfig;
 import com.metlushko.strawberry.entity.User;
-import org.hibernate.SessionFactory;
+import com.metlushko.strawberry.service.UserService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Optional;
 
-
 public class App {
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
+        UserEntityManagerDao dao = context.getBean(UserEntityManagerDao.class);
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Optional<User> byId = dao.findById(11L);
+        System.out.println(byId);
 
-        UserEntityManagerDao managerDao = new UserEntityManagerDao(sessionFactory);
+        User user = dao.save(new User("name", "address", "phoneNumber"));
+        System.out.println(user);
 
+        dao.update(new User("newName", "newAddress", "newPhoneNumber"), user.getId());
 
-        try {
-
-            managerDao.save(new User("save", "Ivanov1", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov2", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov3", "Ivanov"));
-            managerDao.save(new User("save", "Ivanov4", "Ivanov"));
-            Optional<User> user1 = managerDao.findById(1L);
-
-            Optional<User> user2 = managerDao.findById(2L);
-            Optional<User> user3 = managerDao.findById(3L);
-            Optional<User> user4 = managerDao.findById(4L);
-            System.out.println(user1);
-            System.out.println(user2);
-            System.out.println(user3);
-            System.out.println(user4);
-
-
-            managerDao.update(new User("update","Petrov1","Petr"),4L);
-            managerDao.delete(3L);
-            System.out.println();
-        } finally {
-            if (sessionFactory != null && !sessionFactory.isClosed()) {
-                sessionFactory.close();
-            }
-        }
+        dao.delete(11L);
 
     }
 }
