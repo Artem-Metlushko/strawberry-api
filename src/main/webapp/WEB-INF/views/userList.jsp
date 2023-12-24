@@ -20,12 +20,12 @@
     <c:forEach var="user" items="${requestScope.usersList}">
 
         <tr>
-            <td><c:out value="${user.userId}"/></td>
+            <td><c:out value="${user.id}"/></td>
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.address}"/></td>
             <td><c:out value="${user.phoneNumber}"/></td>
-            <td><a href="/api/edit?id=<c:out value='${user.userId}'/>">Edit</a>
-                &nbsp;&nbsp;&nbsp;&nbsp; <a href="/api/delete?id=<c:out value='${user.userId}'/>">Delete</a></td>
+            <td><a href="/api/edit?id=<c:out value='${user.id}'/>">Edit</a>
+                &nbsp;&nbsp;&nbsp;&nbsp; <a href="/api/delete?id=<c:out value='${user.id}'/>">Delete</a></td>
         </tr>
     </c:forEach>
 
