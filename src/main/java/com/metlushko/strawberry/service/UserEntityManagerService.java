@@ -1,9 +1,12 @@
-/*
 package com.metlushko.strawberry.service;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
 import com.metlushko.strawberry.entity.User;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class UserEntityManagerService implements UserService{
     private final UserEntityManagerDao userEntityManagerDao;
 
@@ -24,13 +27,16 @@ public class UserEntityManagerService implements UserService{
 
     @Override
     public void deleteById(Long id) {
-        userEntityManagerDao.deleteById(id);
+        userEntityManagerDao.delete(id);
     }
 
     @Override
     public void update(User user, Long id) {
         userEntityManagerDao.update(user,id);
-
     }
-}
-*/
+
+    public List<User> findAll(){
+        List list = userEntityManagerDao.findAll();
+        return list;
+    }
+ }

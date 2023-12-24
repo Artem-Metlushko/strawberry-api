@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -59,4 +60,8 @@ public class UserEntityManagerDao {
     }
 
 
+    public List findAll() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select u from User u").getResultList();
+    }
 }
