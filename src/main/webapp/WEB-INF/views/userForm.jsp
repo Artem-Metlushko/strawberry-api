@@ -33,19 +33,19 @@
         </c:if>
 
         <fieldset class="form-group">
-            <label>User Name</label> <input type="text"
+            <label>User name</label> <input type="text"
                                             value="<c:out value='${requestScope.user.name}' />"
                                             name="name" required="required">
         </fieldset>
 
         <fieldset class="form-group">
-            <label>User Email</label> <input type="text"
+            <label>User address</label> <input type="text"
                                              value="<c:out value='${requestScope.user.address}' />"
                                              name="address">
         </fieldset>
 
         <fieldset class="form-group">
-            <label>User Country</label> <input type="text"
+            <label>User phoneNumber</label> <input type="text"
                                                value="<c:out value='${requestScope.user.phoneNumber}' />"
                                                name="phoneNumber">
         </fieldset>
