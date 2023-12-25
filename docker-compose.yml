@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  postgres:
+    image: "postgres:14.2"
+    restart: always
+    environment:
+      POSTGRES_DB: "berry"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "25432:5432"
