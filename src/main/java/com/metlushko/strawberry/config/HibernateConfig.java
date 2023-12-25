@@ -1,6 +1,7 @@
 package com.metlushko.strawberry.config;
 
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -66,6 +67,14 @@ public class HibernateConfig {
         hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());
         return hibernateTransactionManager;
 
+    }
+
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
+        liquibase.setDataSource(dataSource());
+        return liquibase;
     }
 
 
