@@ -22,7 +22,7 @@ public class UserEntityManagerService implements UserService{
     @Override
     public User findById(Long id) {
         return userEntityManagerDao.findById(id)
-                .orElse(new User());
+                .orElse(null);
     }
 
     @Override
@@ -36,7 +36,6 @@ public class UserEntityManagerService implements UserService{
     }
 
     public List<User> findAll(){
-        List list = userEntityManagerDao.findAll();
-        return list;
+        return userEntityManagerDao.findAll();
     }
  }

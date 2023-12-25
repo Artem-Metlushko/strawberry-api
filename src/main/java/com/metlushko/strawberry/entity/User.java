@@ -36,9 +36,4 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    public User(String name, String address, String phoneNumber) {
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-    }
 }
