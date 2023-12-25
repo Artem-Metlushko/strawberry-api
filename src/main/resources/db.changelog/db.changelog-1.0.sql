@@ -26,3 +26,7 @@ INSERT INTO "users" (id, name, address, phoneNumber)
 VALUES (12, 'name', 'Ivanov', 'Ivanov' );
 INSERT INTO "users" (id, name, address, phoneNumber)
 VALUES (14, 'ffff', 'Ivanov', 'Ivanov' );
+--rollback DELETE FROM users WHERE id = 10;
+--rollback DELETE FROM users WHERE id = 11;
+--rollback DELETE FROM users WHERE id = 12;
+--rollback DELETE FROM users WHERE id = 14;

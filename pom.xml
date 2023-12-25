@@ -94,12 +94,6 @@
 			<artifactId>liquibase-core</artifactId>
 			<version>${liquibase.verion}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>${liquibase.verion}</version>
-		</dependency>
-
 
 
 	</dependencies>
@@ -110,10 +104,6 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>${liquibase.verion}</version>
-				<configuration>
-					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
-					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -124,14 +114,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>11.0.13</version>
-				<configuration>
-					<scan>3</scan>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

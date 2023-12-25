@@ -72,7 +72,7 @@ public class HibernateConfig {
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
+        liquibase.setChangeLog(env.getRequiredProperty("liquibase.changeLogFiles"));
         liquibase.setDataSource(dataSource());
         return liquibase;
     }

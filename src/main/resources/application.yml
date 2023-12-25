@@ -1,0 +1,6 @@
+spring:
+  liquibase:
+    enabled: true
+    drop-first: true
+    change-log: db.changelog-master.yaml
+    default-schema: public
