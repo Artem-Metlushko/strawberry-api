@@ -24,8 +24,8 @@
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.address}"/></td>
             <td><c:out value="${user.phoneNumber}"/></td>
-            <td><a href="${pageContext.request.contextPath}/users/edit?id=<c:out value='${user.id}'/>">Edit</a>
-                &nbsp;&nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/users/delete?id=<c:out value='${user.id}'/>">Delete</a></td>
+            <td><a href="/users/<c:out value='${user.id}'/>/edit">Edit</a>
+                &nbsp;&nbsp;&nbsp;&nbsp; <a href="/users/<c:out value='${user.id}'/>">Delete</a></td>
         </tr>
     </c:forEach>
 

@@ -13,7 +13,7 @@
 </header>
 
 <c:if test="${requestScope.user.id != null}">
-<form action="/users/updateUser" method="post">
+<form action="/users/<c:out value='${user.id}'/>" method="post">
     </c:if>
     <c:if test="${requestScope.user.id == null}">
     <form action="/users" method="post">
