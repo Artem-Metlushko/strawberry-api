@@ -8,15 +8,15 @@
 
 <body>
 <header>
-    <li><a href="<%=request.getContextPath()%>/api/list">Users</a></li>
+    <li><a href="<%=request.getContextPath()%>/users">Users</a></li>
     &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 </header>
 
-<c:if test="${requestScope.user != null}">
-<form action="/api/updateUser" method="post">
+<c:if test="${requestScope.user.id != null}">
+<form action="/users/updateUser" method="post">
     </c:if>
-    <c:if test="${requestScope.user == null}">
-    <form action="/api/insertUser" method="post">
+    <c:if test="${requestScope.user.id == null}">
+    <form action="/users" method="post">
         </c:if>
 
         <caption>

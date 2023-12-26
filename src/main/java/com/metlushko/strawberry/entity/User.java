@@ -22,6 +22,11 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 public class User {
+    public User(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     @Id
 //    @GeneratedValue(strategy = IDENTITY)
@@ -35,5 +40,6 @@ public class User {
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
 
 }

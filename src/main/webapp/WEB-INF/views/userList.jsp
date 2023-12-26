@@ -5,7 +5,7 @@
 
 </head>
 <body>
-<a href="<%=request.getContextPath()%>/api/new">Add New User</a>
+<a href="<%=request.getContextPath()%>/users/new">Add New User</a>
 <table>
     <thead>
     <tr>
@@ -24,8 +24,8 @@
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.address}"/></td>
             <td><c:out value="${user.phoneNumber}"/></td>
-            <td><a href="/api/edit?id=<c:out value='${user.id}'/>">Edit</a>
-                &nbsp;&nbsp;&nbsp;&nbsp; <a href="/api/delete?id=<c:out value='${user.id}'/>">Delete</a></td>
+            <td><a href="${pageContext.request.contextPath}/users/edit?id=<c:out value='${user.id}'/>">Edit</a>
+                &nbsp;&nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/users/delete?id=<c:out value='${user.id}'/>">Delete</a></td>
         </tr>
     </c:forEach>
 

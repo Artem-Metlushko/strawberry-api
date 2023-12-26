@@ -4,59 +4,96 @@ import com.metlushko.strawberry.entity.User;
 import com.metlushko.strawberry.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller()
-@RequestMapping("/api")
-public class UserController {
+@RequestMapping("/users")
+public class UsersController {
 
     private final UserService userService;
+
+    private final List<User> users = new ArrayList<>();
 
 
     private static final String LIST_USERS = "/api/list";
 
-    public UserController(UserService userService) {
+    public UsersController(UserService userService) {
         this.userService = userService;
     }
 
-    /*    @GetMapping("/api/list")
-        public String list(Model model) {
-
-            model.addAttribute("usersList", userService.findAll());
-            return "/userList";
-
-        }*/
-    @GetMapping("/list")
+    @GetMapping("")
     public String list(Model model) {
 
-        model.addAttribute("usersList", userService.findAll());
+
+        List<User> userList = userService.findAll();
+        model.addAttribute("usersList", userList);
         return "/userList";
 
     }
 
     @GetMapping("/new")
-    public String showUserForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showUserForm(@ModelAttribute("user") User user) {
+
         return "/userForm";
     }
 
-    @GetMapping("/api/{id}")
-    public String findUserById(@PathVariable("id") Long id, Model model) {
+    //  http://localhost:8081/users/11
+    @GetMapping("/{id}")
+    public String findUserById(
+            @PathVariable("id") Long id, Model model
+    ) {
+
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+
+        return "/userForm";
+    }
+
+    // http://localhost:8081/users/user?id=11
+    @GetMapping("/user")
+    public String findUserId(
+            @RequestParam("id") Long id, Model model
+    ) {
 
         User user = userService.findById(id);
         model.addAttribute("user", user);
 
         return "/userForm";
 
+    }
+
+/*    @GetMapping("/{id}")
+    public String findUserById(HttpServletRequest request, Model model) {
+
+        long id = Long.parseLong(request.getParameter("id"));
+
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "/userForm";
+
+    }*/
+
+
+
+    @PostMapping
+    public String create(@RequestParam("name") String name,
+                         @RequestParam("address") String address,
+                         @RequestParam ("phoneNumber") String phoneNumber){
+
+        User user = new User(name, address, phoneNumber);
+
+        userService.save(user);
+
+        return "redirect:/users";
     }
 
 
