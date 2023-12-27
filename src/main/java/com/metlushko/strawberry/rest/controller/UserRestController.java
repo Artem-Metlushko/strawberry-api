@@ -1,11 +1,15 @@
 package com.metlushko.strawberry.rest.controller;
 
 import com.metlushko.strawberry.entity.User;
+import com.metlushko.strawberry.exception.ErrorMessage;
+import com.metlushko.strawberry.exception.ResourceNotFoundException;
 import com.metlushko.strawberry.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +66,14 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         userService.deleteById(id);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ErrorMessage> handleException(ResourceNotFoundException e) {
+        ErrorMessage errorMessage = new ErrorMessage(
+                System.currentTimeMillis(),
+                "User not found");
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
 

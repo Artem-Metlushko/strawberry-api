@@ -2,6 +2,7 @@ package com.metlushko.strawberry.DAO;
 
 
 import com.metlushko.strawberry.entity.User;
+import com.metlushko.strawberry.exception.ResourceNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -32,10 +33,14 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
-    public Optional<User> findById(Long id) {
+    public User findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
-        return Optional.ofNullable(user);
+
+        if(user== null){
+            throw  new ResourceNotFoundException();
+        }
+        return user;
     }
 
     @Transactional
