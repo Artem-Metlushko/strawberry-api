@@ -2,17 +2,17 @@ package com.metlushko.strawberry.service;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
 import com.metlushko.strawberry.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@RequiredArgsConstructor
 @Service
 public class UserEntityManagerService implements UserService{
     private final UserEntityManagerDao userEntityManagerDao;
 
-    public UserEntityManagerService(final UserEntityManagerDao userEntityManagerDao) {
-        this.userEntityManagerDao = userEntityManagerDao;
-    }
 
     @Override
     public User save(User user) {
