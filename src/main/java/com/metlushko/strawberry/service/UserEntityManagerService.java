@@ -28,11 +28,12 @@ public class UserEntityManagerService implements UserService{
     @Override
     public void deleteById(Long id) {
         userEntityManagerDao.delete(id);
+
     }
 
     @Override
-    public void update(User user, Long id) {
-        userEntityManagerDao.update(user,id);
+    public User update(User user, Long id) {
+        return userEntityManagerDao.update(user, id);
     }
 
     public List<User> findAll(){
