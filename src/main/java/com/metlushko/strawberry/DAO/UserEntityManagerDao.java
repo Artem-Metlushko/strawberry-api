@@ -2,10 +2,10 @@ package com.metlushko.strawberry.DAO;
 
 
 import com.metlushko.strawberry.entity.User;
+import com.metlushko.strawberry.exception.ResourceNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +40,15 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
-    public void update(User userUpdate, Long id) {
+    public User update(User userUpdate, Long id) {
         Session session = sessionFactory.getCurrentSession();
         User userToUpdate = session.get(User.class, id);
 
         userToUpdate.setName(userUpdate.getName());
         userToUpdate.setAddress(userUpdate.getAddress());
         userToUpdate.setPhoneNumber(userUpdate.getPhoneNumber());
+
+        return userToUpdate;
 
 
     }
@@ -58,11 +60,12 @@ public class UserEntityManagerDao {
         User userToDelete = session.get(User.class, id);
         session.remove(userToDelete);
 
+
     }
 
     @Transactional
     public List<User> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select u from User u",User.class).getResultList();
+        return session.createQuery("select u from User u", User.class).getResultList();
     }
 }

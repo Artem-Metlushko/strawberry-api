@@ -2,17 +2,18 @@ package com.metlushko.strawberry.service;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
 import com.metlushko.strawberry.entity.User;
+import com.metlushko.strawberry.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@RequiredArgsConstructor
 @Service
 public class UserEntityManagerService implements UserService{
     private final UserEntityManagerDao userEntityManagerDao;
 
-    public UserEntityManagerService(final UserEntityManagerDao userEntityManagerDao) {
-        this.userEntityManagerDao = userEntityManagerDao;
-    }
 
     @Override
     public User save(User user) {
@@ -22,17 +23,18 @@ public class UserEntityManagerService implements UserService{
     @Override
     public User findById(Long id) {
         return userEntityManagerDao.findById(id)
-                .orElse(null);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public void deleteById(Long id) {
         userEntityManagerDao.delete(id);
+
     }
 
     @Override
-    public void update(User user, Long id) {
-        userEntityManagerDao.update(user,id);
+    public User update(User user, Long id) {
+        return userEntityManagerDao.update(user, id);
     }
 
     public List<User> findAll(){
