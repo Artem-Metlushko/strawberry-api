@@ -33,14 +33,10 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
-
-        if(user== null){
-            throw  new ResourceNotFoundException();
-        }
-        return user;
+        return Optional.ofNullable(user);
     }
 
     @Transactional

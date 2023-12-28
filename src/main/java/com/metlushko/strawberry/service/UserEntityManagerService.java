@@ -2,6 +2,7 @@ package com.metlushko.strawberry.service;
 
 import com.metlushko.strawberry.DAO.UserEntityManagerDao;
 import com.metlushko.strawberry.entity.User;
+import com.metlushko.strawberry.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class UserEntityManagerService implements UserService{
 
     @Override
     public User findById(Long id) {
-        return userEntityManagerDao.findById(id);
+        return userEntityManagerDao.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
