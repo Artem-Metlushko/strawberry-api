@@ -18,7 +18,7 @@ public class LoggingAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @Before("execution(* com.metlushko.strawberry.service.UserEntityManagerService.*(..)) ")
+    @Before("execution(* com.metlushko.strawberry.service.UserEntityManagerService.findById(..)) ")
     public  void logBeforeMethod(JoinPoint joinPoint){
         logger.info("=|=|=|=|=|=|=|=>           Before run method : "+joinPoint.getSignature().getName());
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -27,7 +27,7 @@ public class LoggingAspect {
 
     }
 
-    @AfterReturning(pointcut = "execution(* com.metlushko.strawberry.service.UserEntityManagerService.*(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* com.metlushko.strawberry.service.UserEntityManagerService.findById(..))", returning = "result")
     public void logAfterMethod(JoinPoint joinPoint,Object result){
         if (result instanceof User) {
             User user = (User) result;
