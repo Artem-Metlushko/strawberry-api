@@ -2,6 +2,7 @@ package com.metlushko.strawberry.DAO;
 
 
 import com.metlushko.strawberry.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -14,13 +15,10 @@ import java.util.Optional;
 
 
 @Repository
+@RequiredArgsConstructor
 public class UserEntityManagerDao {
 
     private final SessionFactory sessionFactory;
-
-    public UserEntityManagerDao(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Transactional
     public User save(User user) {
