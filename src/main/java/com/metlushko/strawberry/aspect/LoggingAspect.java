@@ -36,13 +36,6 @@ public class LoggingAspect {
 
     }
 
-    @Before("execution ( public void findAll())")
-    public void logBeforeCallAllMethod(JoinPoint joinPoint) {
-        logger.info("Before run method : {}", joinPoint.getSignature().getName());
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-
-        logger.info("INPUT Class : {}", signature.getClass());
-    }
 }
 
 

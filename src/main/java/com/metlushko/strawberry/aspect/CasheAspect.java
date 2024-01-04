@@ -28,7 +28,7 @@ public class CasheAspect {
 
     @Around(value = "findByIdPoint()")
     public Optional<User> findByIdAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
-
+        logger.info("---------------------------");
         logMapIsEmpty();
 
         Long id = (Long) joinPoint.getArgs()[0];
@@ -46,17 +46,16 @@ public class CasheAspect {
         userFromDatabase.ifPresent(user -> casheMap.put(id, user));
 
         logToTerminal();
-
+        logger.info("---------------------------");
         return userFromDatabase;
 
     }
 
     private void logToTerminal() {
-
         String mapToString = casheMap.entrySet().stream().toList().toString();
-        logger.info("---------------------------");
+
         logger.info("HASHMAP : {}", mapToString);
-        logger.info("---------------------------");
+
     }
 
     private void logMapIsEmpty() {
@@ -71,7 +70,7 @@ public class CasheAspect {
 
     @Around(value = "savePoint()")
     public User saveBeforeAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-
+        logger.info("---------------------------");
         logMapIsEmpty();
 
         User userFromDatabase = (User) proceedingJoinPoint.proceed();
@@ -79,7 +78,7 @@ public class CasheAspect {
         casheMap.put(userFromDatabase.getId(), userFromDatabase);
 
         logToTerminal();
-
+        logger.info("---------------------------");
         return userFromDatabase;
     }
 
@@ -88,7 +87,8 @@ public class CasheAspect {
     }
 
     @Around(value = "updatePoint()")
-    public void updateAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object updateAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        logger.info("---------------------------");
         logMapIsEmpty();
 
         User user = (User) proceedingJoinPoint.getArgs()[0];
@@ -97,8 +97,32 @@ public class CasheAspect {
 
         proceedingJoinPoint.proceed();
 
-        casheMap.put(userId, user);
+        User userFromCashe = casheMap.put(userId, user);
 
         logToTerminal();
+        logger.info("---------------------------");
+        return userFromCashe;
+    }
+
+    @Pointcut("@annotation(com.metlushko.strawberry.aspect.annotation.DeleteCashe)")
+    public void deletePoint() {
+    }
+
+    @Around(value = "deletePoint()")
+    public Object deleteAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        logger.info("---------------------------");
+        logMapIsEmpty();
+
+        Long id = (Long) proceedingJoinPoint.getArgs()[0];
+        Optional<User> cachedUser = Optional.ofNullable(casheMap.get(id));
+        if (cachedUser.isPresent()) {
+            casheMap.remove(id);
+            logToTerminal();
+            logger.info("---------------------------");
+            return proceedingJoinPoint.proceed();
+        }
+        logToTerminal();
+        logger.info("---------------------------");
+        return  proceedingJoinPoint.proceed();
     }
 }

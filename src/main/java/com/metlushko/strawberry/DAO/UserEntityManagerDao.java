@@ -1,6 +1,7 @@
 package com.metlushko.strawberry.DAO;
 
 
+import com.metlushko.strawberry.aspect.annotation.DeleteCashe;
 import com.metlushko.strawberry.aspect.annotation.FindByIdCashe;
 import com.metlushko.strawberry.aspect.annotation.SaveCashe;
 import com.metlushko.strawberry.aspect.annotation.UpdateCashe;
@@ -55,6 +56,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @DeleteCashe
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
 
