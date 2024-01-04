@@ -3,6 +3,7 @@ package com.metlushko.strawberry.DAO;
 
 import com.metlushko.strawberry.aspect.annotation.FindByIdCashe;
 import com.metlushko.strawberry.aspect.annotation.SaveCashe;
+import com.metlushko.strawberry.aspect.annotation.UpdateCashe;
 import com.metlushko.strawberry.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -41,6 +42,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @UpdateCashe
     public void update(User userUpdate, Long id) {
         Session session = sessionFactory.getCurrentSession();
         User userToUpdate = session.get(User.class, id);
