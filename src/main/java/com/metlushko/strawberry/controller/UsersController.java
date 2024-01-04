@@ -2,6 +2,7 @@ package com.metlushko.strawberry.controller;
 
 import com.metlushko.strawberry.entity.User;
 import com.metlushko.strawberry.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Controller()
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UsersController {
 
     private final UserService userService;
@@ -25,10 +27,6 @@ public class UsersController {
 
     private static final String USERS_LINK = "/users";
 
-
-    public UsersController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("")
     public String list(Model model) {

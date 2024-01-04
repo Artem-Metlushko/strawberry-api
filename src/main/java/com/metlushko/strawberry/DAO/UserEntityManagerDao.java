@@ -1,11 +1,15 @@
 package com.metlushko.strawberry.DAO;
 
 
+import com.metlushko.strawberry.aspect.annotation.DeleteCashe;
+import com.metlushko.strawberry.aspect.annotation.FindByIdCashe;
+import com.metlushko.strawberry.aspect.annotation.SaveCashe;
+import com.metlushko.strawberry.aspect.annotation.UpdateCashe;
 import com.metlushko.strawberry.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +18,13 @@ import java.util.Optional;
 
 
 @Repository
+@RequiredArgsConstructor
 public class UserEntityManagerDao {
 
     private final SessionFactory sessionFactory;
 
-    public UserEntityManagerDao(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Transactional
+    @SaveCashe
     public User save(User user) {
         Session session = sessionFactory.getCurrentSession();
 
@@ -33,6 +35,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @FindByIdCashe
     public Optional<User> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
@@ -40,6 +43,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @UpdateCashe
     public void update(User userUpdate, Long id) {
         Session session = sessionFactory.getCurrentSession();
         User userToUpdate = session.get(User.class, id);
@@ -52,6 +56,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @DeleteCashe
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
 

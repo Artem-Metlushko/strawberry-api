@@ -2,20 +2,18 @@ package com.metlushko.strawberry.controller;
 
 import com.metlushko.strawberry.entity.User;
 import com.metlushko.strawberry.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
-
 @Controller()
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
 
@@ -24,17 +22,7 @@ public class UserController {
 
     private static final String LIST_USERS = "/api/list";
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
-    /*    @GetMapping("/api/list")
-        public String list(Model model) {
-
-            model.addAttribute("usersList", userService.findAll());
-            return "/userList";
-
-        }*/
     @GetMapping("/list")
     public String list(Model model) {
 
