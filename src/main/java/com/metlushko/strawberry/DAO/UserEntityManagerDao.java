@@ -2,6 +2,7 @@ package com.metlushko.strawberry.DAO;
 
 
 import com.metlushko.strawberry.aspect.annotation.FindByIdCashe;
+import com.metlushko.strawberry.aspect.annotation.SaveCashe;
 import com.metlushko.strawberry.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -21,6 +22,7 @@ public class UserEntityManagerDao {
     private final SessionFactory sessionFactory;
 
     @Transactional
+    @SaveCashe
     public User save(User user) {
         Session session = sessionFactory.getCurrentSession();
 
