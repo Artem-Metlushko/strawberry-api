@@ -20,6 +20,7 @@ public class UserEntityManagerService implements UserService{
     }
 
     @Override
+
     public User findById(Long id) {
         return userEntityManagerDao.findById(id)
                 .orElse(null);

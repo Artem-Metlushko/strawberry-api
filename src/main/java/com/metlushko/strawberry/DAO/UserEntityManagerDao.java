@@ -1,12 +1,12 @@
 package com.metlushko.strawberry.DAO;
 
 
+import com.metlushko.strawberry.aspect.annotation.FindByIdCashe;
 import com.metlushko.strawberry.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +31,7 @@ public class UserEntityManagerDao {
     }
 
     @Transactional
+    @FindByIdCashe
     public Optional<User> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);

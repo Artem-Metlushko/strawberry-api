@@ -19,26 +19,29 @@ public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
     @Before("execution(* com.metlushko.strawberry.service.UserEntityManagerService.findById(..)) ")
-    public  void logBeforeMethod(JoinPoint joinPoint){
-        logger.info("=|=|=|=|=|=|=|=>           Before run method : "+joinPoint.getSignature().getName());
+    public void logBeforeMethod(JoinPoint joinPoint) {
+        logger.info("=|=|=|=|=|=|=|=> Before run method : {}", joinPoint.getSignature().getName());
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        logger.info("INPUT VALUE :"+Arrays.stream(joinPoint.getArgs()).findFirst().orElseThrow().toString());
-        logger.info("INPUT ParameterTypes :"+Arrays.toString(signature.getParameterTypes()));
+        logger.info("INPUT VALUE : {}", Arrays.stream(joinPoint.getArgs()).findFirst());
+        logger.info("INPUT ParameterTypes : {}", (Object) signature.getParameterTypes());
 
     }
 
-    @AfterReturning(pointcut = "execution(* com.metlushko.strawberry.service.UserEntityManagerService.findById(..))", returning = "result")
-    public void logAfterMethod(JoinPoint joinPoint,Object result){
-        if (result instanceof User) {
-            User user = (User) result;
-            logger.info("=|=|=|=|=|=|=|=> After run method: " + joinPoint.getSignature().getName());
-            logger.info("OUTPUT VALUE: " + user);
+    @AfterReturning(pointcut = "execution(* com.metlushko.strawberry.service.UserEntityManagerService.findById(..))", returning = "user")
+    public void logAfterMethod(JoinPoint joinPoint, User user) {
 
-        } else {
-            logger.warn("Returned object is not of type User.");
-        }
+        logger.info("=|=|=|=|=|=|=|=> After run method: {}", joinPoint.getSignature().getName());
+        logger.info("OUTPUT VALUE: {}", user);
 
 
+    }
+
+    @Before("execution ( public void findAll())")
+    public void logBeforeCallAllMethod(JoinPoint joinPoint) {
+        logger.info("Before run method : {}", joinPoint.getSignature().getName());
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+
+        logger.info("INPUT Class : {}", signature.getClass());
     }
 }
 
